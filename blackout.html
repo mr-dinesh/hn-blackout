@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HN Blackout Poetry</title>
+  <meta property="og:title" content="HN Blackout" />
+  <meta property="og:description" content="Blackout poetry from the Hacker News front page. Words found. Meaning made. The rest, erased." />
+  <meta property="og:image" content="https://raw.githubusercontent.com/mr-dinesh/hn-blackout/main/screenshot.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -360,6 +364,23 @@
     }
     #poem-attribution.visible { opacity: 1; }
 
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--dark-surface);
+      border-top: 1px solid var(--dark-border);
+      padding: 10px 24px;
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--cream-dim);
+    }
+    .site-footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .site-footer a:hover { text-decoration: underline; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 760px) {
       .workspace { grid-template-columns: 1fr; }
@@ -428,6 +449,10 @@
   </div>
 
 </main>
+
+<footer class="site-footer">
+  A <a href="https://mrdee.in/vibecoding/vibecoding-019-hn-blackout-poetry/" target="_blank" rel="noopener">Vibe Coding</a> project by <a href="https://mrdee.in" target="_blank" rel="noopener">mrdee.in</a>
+</footer>
 
 <script>
   // ── Date ──────────────────────────────────────────────────────────────

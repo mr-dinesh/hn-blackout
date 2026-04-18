@@ -4,6 +4,8 @@
 
 *Words found. Meaning made. The rest, erased.*
 
+![HN Blackout — newspaper panel with blacked-out headlines beside the found poem "Fevered Machines"](screenshot.jpg)
+
 Inspired by [Austin Kleon's blackout poetry](https://austinkleon.com/category/newspaper-blackout-poems/), this tool fetches today's Hacker News headlines and asks an LLM to pick 10–15 words that form a haunting found poem. Everything else gets blacked out — marker-stroke animation and all.
 
 ---
