@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HN Blackout Poetry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --newsprint:      #f4ede0;
+      --newsprint-dark: #e8dcca;
+      --ink:            #2a2118;
+      --ink-light:      #5a4f42;
+      --marker:         #131110;
+      --dark-bg:        #0d0c0a;
+      --dark-surface:   #161411;
+      --dark-border:    #2c2820;
+      --gold:           #c4a35a;
+      --cream:          #e8d9c0;
+      --cream-dim:      #7a6e62;
+    }
+
+    body {
+      background: var(--dark-bg);
+      color: var(--cream);
+      font-family: 'IM Fell English', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--newsprint);
+      color: var(--ink);
+      padding: 0 32px 0;
+    }
+
+    .rule-thick { height: 4px; background: var(--ink); }
+    .rule-thin  { height: 1px; background: var(--ink); margin-top: 2px; }
+
+    .masthead-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 5px 0;
+      font-family: 'IM Fell English', serif;
+      font-size: 0.6rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      border-bottom: 1px solid var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .masthead-center {
+      text-align: center;
+      padding: 4px 0 8px;
+    }
+
+    .masthead-center h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 9vw, 5.5rem);
+      letter-spacing: 14px;
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .masthead-tagline {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      letter-spacing: 3px;
+      color: var(--ink-light);
+      text-align: center;
+      border-top: 1px solid var(--ink);
+      padding: 5px 0 6px;
+      margin-top: 4px;
+    }
+
+    /* ── SETTINGS ── */
+    .settings-bar {
+      background: var(--dark-surface);
+      border-bottom: 1px solid var(--dark-border);
+      padding: 9px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .lbl {
+      font-family: 'Courier New', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      white-space: nowrap;
+    }
+
+    .settings-bar select,
+    .settings-bar input[type="password"] {
+      background: #1b1916;
+      border: 1px solid #38332e;
+      color: var(--cream);
+      padding: 6px 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .settings-bar select { width: 190px; cursor: pointer; }
+    .settings-bar input[type="password"] { width: 250px; }
+
+    .settings-bar select:focus,
+    .settings-bar input:focus { border-color: var(--gold); }
+
+    #btn-generate {
+      margin-left: auto;
+      background: var(--newsprint);
+      color: var(--ink);
+      border: none;
+      padding: 8px 26px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+    #btn-generate:hover:not(:disabled) {
+      background: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    #btn-generate:active:not(:disabled) { transform: translateY(0); }
+    #btn-generate:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* ── STATUS ── */
+    .status-bar {
+      background: var(--dark-bg);
+      border-bottom: 1px solid var(--dark-border);
+      padding: 5px 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 26px;
+    }
+
+    .s-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--cream-dim);
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    .s-dot.active {
+      background: var(--gold);
+      animation: blink 1s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.25; }
+    }
+
+    #status-text {
+      font-family: 'Courier New', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+      color: var(--cream-dim);
+    }
+
+    /* ── WORKSPACE ── */
+    .workspace {
+      display: grid;
+      grid-template-columns: 58% 42%;
+      min-height: calc(100vh - 195px);
+    }
+
+    /* ── NEWSPAPER PANEL ── */
+    .newspaper-panel {
+      background: var(--newsprint);
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 30px,
+        rgba(42, 33, 24, 0.055) 30px,
+        rgba(42, 33, 24, 0.055) 31px
+      );
+      padding: 20px 32px 48px 28px;
+      border-right: 3px double var(--ink);
+      position: relative;
+      overflow-y: auto;
+    }
+
+    .col-header {
+      font-family: 'IM Fell English', serif;
+      font-size: 0.58rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #word-grid {
+      font-family: 'IM Fell English', serif;
+      font-size: 0.92rem;
+      color: var(--ink);
+      line-height: 2.35;
+    }
+
+    .word {
+      display: inline;
+      cursor: default;
+      border-radius: 1px;
+      padding: 1px 1px;
+    }
+
+    .word.blacked-out {
+      animation: marker-stroke 0.12s ease-out forwards;
+    }
+
+    @keyframes marker-stroke {
+      0%   { background: transparent; color: var(--ink); }
+      30%  { background: #2a2118;     color: #2a2118;    }
+      100% { background: var(--marker); color: var(--marker); }
+    }
+
+    .word.selected {
+      font-weight: bold;
+      color: var(--ink);
+      background: transparent;
+      border-bottom: 2.5px solid var(--ink);
+      padding-bottom: 0;
+    }
+
+    .title-break {
+      display: block;
+      height: 8px;
+    }
+
+    .placeholder-hint {
+      font-style: italic;
+      color: var(--ink-light);
+      opacity: 0.45;
+      font-size: 0.88rem;
+    }
+
+    /* ── POEM PANEL ── */
+    .poem-panel {
+      background: var(--dark-bg);
+      display: flex;
+      flex-direction: column;
+      padding: 32px 36px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* faint grid texture */
+    .poem-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(196,163,90,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(196,163,90,0.025) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+    }
+
+    .poem-label {
+      font-family: 'Courier New', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      border-bottom: 1px solid var(--dark-border);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #poem-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--gold);
+      margin-bottom: 28px;
+      min-height: 1.4em;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+      position: relative;
+      z-index: 1;
+    }
+    #poem-title.visible { opacity: 1; }
+
+    #poem-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .poem-word-line {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.3;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .poem-word-line.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .poem-placeholder {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--cream-dim);
+      opacity: 0.2;
+      text-align: center;
+      padding: 48px 0;
+      line-height: 1.7;
+    }
+
+    #poem-attribution {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.72rem;
+      color: var(--cream-dim);
+      border-top: 1px solid var(--dark-border);
+      padding-top: 14px;
+      margin-top: 24px;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      position: relative;
+      z-index: 1;
+    }
+    #poem-attribution.visible { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 760px) {
+      .workspace { grid-template-columns: 1fr; }
+      .newspaper-panel { border-right: none; border-bottom: 3px double var(--ink); }
+      .masthead-center h1 { font-size: 2.6rem; letter-spacing: 7px; }
+      .masthead-meta span:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="rule-thick"></div>
+  <div class="rule-thin"></div>
+  <div class="masthead-meta">
+    <span>Vol. I &nbsp;·&nbsp; Issue ∞</span>
+    <span>Blackout Poetry From the Hacker News Front Page</span>
+    <span id="today-date"></span>
+  </div>
+  <div class="masthead-center">
+    <h1>HN Blackout</h1>
+  </div>
+  <div class="masthead-tagline">Words found. Meaning made. The rest, erased.</div>
+  <div class="rule-thick" style="margin-top:0;"></div>
+</header>
+
+<!-- SETTINGS -->
+<div class="settings-bar">
+  <span class="lbl">Provider</span>
+  <select id="provider">
+    <option value="groq">Groq — llama-3.3-70b</option>
+    <option value="gemini">Gemini — Flash 2.0</option>
+  </select>
+  <span class="lbl">API Key</span>
+  <input type="password" id="api-key" placeholder="paste key here" autocomplete="off" spellcheck="false" />
+  <button id="btn-generate">Generate Poem</button>
+</div>
+
+<!-- STATUS -->
+<div class="status-bar">
+  <div class="s-dot" id="s-dot"></div>
+  <span id="status-text">Enter your API key and click Generate Poem</span>
+</div>
+
+<!-- WORKSPACE -->
+<main class="workspace">
+
+  <div class="newspaper-panel">
+    <div class="col-header">
+      <span>Today's Front Page — Hacker News</span>
+      <span id="story-count"></span>
+    </div>
+    <div id="word-grid">
+      <span class="placeholder-hint">Headlines will appear here once you generate a poem.</span>
+    </div>
+  </div>
+
+  <div class="poem-panel">
+    <div class="poem-label">Found Poem</div>
+    <div id="poem-title"></div>
+    <div id="poem-content">
+      <div class="poem-placeholder">The poem will emerge<br>from the headlines…</div>
+    </div>
+    <div id="poem-attribution">— Found in today's Hacker News front page</div>
+  </div>
+
+</main>
+
+<script>
+  // ── Date ──────────────────────────────────────────────────────────────
+  document.getElementById('today-date').textContent =
+    new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
+
+  // ── Persist API keys ──────────────────────────────────────────────────
+  const providerEl = document.getElementById('provider');
+  const apiKeyEl   = document.getElementById('api-key');
+
+  function loadKey() {
+    apiKeyEl.value = localStorage.getItem(`hn_blackout_key_${providerEl.value}`) || '';
+  }
+  providerEl.addEventListener('change', loadKey);
+  apiKeyEl.addEventListener('input', () => {
+    localStorage.setItem(`hn_blackout_key_${providerEl.value}`, apiKeyEl.value.trim());
+  });
+  loadKey();
+
+  // ── Status ────────────────────────────────────────────────────────────
+  function setStatus(msg, active = false) {
+    document.getElementById('status-text').textContent = msg;
+    document.getElementById('s-dot').classList.toggle('active', active);
+  }
+
+  // ── HN API ────────────────────────────────────────────────────────────
+  const HN = 'https://hacker-news.firebaseio.com/v0';
+
+  async function fetchTitles(n = 20) {
+    const ids   = await fetch(`${HN}/topstories.json`).then(r => r.json());
+    const items = await Promise.all(
+      ids.slice(0, n).map(id => fetch(`${HN}/item/${id}.json`).then(r => r.json()))
+    );
+    return items.filter(item => item && item.title).map(item => item.title);
+  }
+
+  // ── Tokenizer ─────────────────────────────────────────────────────────
+  function tokenize(titles) {
+    const tokens = [];
+    let id = 0;
+    titles.forEach((title, titleIdx) => {
+      title.split(/\s+/).filter(Boolean).forEach(raw => {
+        tokens.push({ id: id++, raw, titleIdx, isBreak: false });
+      });
+      tokens.push({ id: id++, raw: '', titleIdx, isBreak: true });
+    });
+    return tokens;
+  }
+
+  // ── Render tokens ─────────────────────────────────────────────────────
+  let spanMap = new Map();
+
+  function renderTokens(tokens) {
+    const grid = document.getElementById('word-grid');
+    grid.innerHTML = '';
+    spanMap.clear();
+    tokens.forEach(tok => {
+      if (tok.isBreak) {
+        const br = document.createElement('span');
+        br.className = 'title-break';
+        grid.appendChild(br);
+        return;
+      }
+      const span = document.createElement('span');
+      span.className = 'word';
+      span.textContent = tok.raw + '\u00a0'; // nbsp for spacing
+      spanMap.set(tok.id, span);
+      grid.appendChild(span);
+    });
+  }
+
+  // ── Match poem words to tokens ────────────────────────────────────────
+  function strip(s) { return s.replace(/[.,;:!?()\[\]'"''"–—]+$/g, ''); }
+
+  function matchPoem(tokens, poemWords) {
+    const usedIds    = new Set();
+    const selectedIds = new Set();
+    for (const word of poemWords) {
+      let tok =
+        tokens.find(t => !t.isBreak && !usedIds.has(t.id) && t.raw === word) ||
+        tokens.find(t => !t.isBreak && !usedIds.has(t.id) && t.raw.toLowerCase() === word.toLowerCase()) ||
+        tokens.find(t => !t.isBreak && !usedIds.has(t.id) && strip(t.raw) === strip(word)) ||
+        tokens.find(t => !t.isBreak && !usedIds.has(t.id) && strip(t.raw).toLowerCase() === strip(word).toLowerCase());
+      if (tok) {
+        usedIds.add(tok.id);
+        selectedIds.add(tok.id);
+      }
+    }
+    return selectedIds;
+  }
+
+  // ── LLM call ──────────────────────────────────────────────────────────
+  async function callLLM(titles, provider, apiKey) {
+    const numbered = titles.map((t, i) => `${i + 1}. ${t}`).join('\n');
+    const prompt =
+`You are a blackout poet in the style of Austin Kleon. From these Hacker News front page headlines, select exactly 10–15 words that form a haunting, evocative poem when read in sequence.
+
+Rules:
+- Each word MUST appear exactly as written in the headlines (preserve capitalisation and any attached punctuation)
+- Return ONLY valid JSON: {"title": "short evocative poem title", "poem": ["word1", "word2", ...]}
+- Prefer unexpected juxtapositions — fragments that resonate, feel mysterious, human, or strange
+- Avoid mundane connectives: and, the, a, of, in, to, for, is, are, was, with, on, at, by, an
+
+Headlines:
+${numbered}`;
+
+    if (provider === 'groq') {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages: [{ role: 'user', content: prompt }],
+          response_format: { type: 'json_object' },
+          temperature: 0.9,
+          max_tokens: 300
+        })
+      });
+      if (!res.ok) {
+        const e = await res.json().catch(() => ({}));
+        throw new Error(e.error?.message || `Groq API error ${res.status}`);
+      }
+      const data = await res.json();
+      return JSON.parse(data.choices[0].message.content);
+    } else {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { responseMimeType: 'application/json', temperature: 0.9 }
+          })
+        }
+      );
+      if (!res.ok) {
+        const e = await res.json().catch(() => ({}));
+        throw new Error(e.error?.message || `Gemini API error ${res.status}`);
+      }
+      const data = await res.json();
+      return JSON.parse(data.candidates[0].content.parts[0].text);
+    }
+  }
+
+  // ── Blackout animation ────────────────────────────────────────────────
+  function animateBlackout(tokens, selectedIds) {
+    const wordTokens = tokens.filter(t => !t.isBreak);
+    const nonSel     = wordTokens.filter(t => !selectedIds.has(t.id));
+    const perWord    = Math.max(8, Math.min(22, 3600 / Math.max(nonSel.length, 1)));
+
+    let delay = 0;
+    wordTokens.forEach(tok => {
+      const span = spanMap.get(tok.id);
+      if (!span) return;
+      if (selectedIds.has(tok.id)) {
+        span.classList.add('selected');
+      } else {
+        const d = delay;
+        setTimeout(() => span.classList.add('blacked-out'), d);
+        delay += perWord;
+      }
+    });
+    return delay;
+  }
+
+  // ── Render poem ───────────────────────────────────────────────────────
+  function renderPoem(poemWords, poemTitle, animDelay) {
+    const titleEl   = document.getElementById('poem-title');
+    const contentEl = document.getElementById('poem-content');
+    const attrEl    = document.getElementById('poem-attribution');
+
+    titleEl.className  = 'poem-title';
+    attrEl.className   = 'poem-attribution';
+    contentEl.innerHTML = '';
+
+    // Title appears first, after 40% of animation
+    const wordStart = animDelay * 0.38;
+
+    setTimeout(() => {
+      titleEl.textContent = `"${poemTitle}"`;
+      requestAnimationFrame(() => titleEl.classList.add('visible'));
+    }, wordStart);
+
+    // Words appear one by one
+    poemWords.forEach((word, i) => {
+      const el = document.createElement('div');
+      el.className = 'poem-word-line';
+      el.textContent = word;
+      contentEl.appendChild(el);
+      setTimeout(() => {
+        requestAnimationFrame(() => el.classList.add('visible'));
+      }, wordStart + 180 + i * 190);
+    });
+
+    // Attribution last
+    setTimeout(() => {
+      attrEl.classList.add('visible');
+    }, wordStart + 180 + poemWords.length * 190 + 600);
+  }
+
+  // ── Main ──────────────────────────────────────────────────────────────
+  document.getElementById('btn-generate').addEventListener('click', async () => {
+    const apiKey   = apiKeyEl.value.trim();
+    const provider = providerEl.value;
+
+    if (!apiKey) {
+      setStatus('Please enter an API key first.');
+      apiKeyEl.focus();
+      return;
+    }
+
+    const btn = document.getElementById('btn-generate');
+    btn.disabled = true;
+
+    // Reset poem panel
+    document.getElementById('poem-title').className  = 'poem-title';
+    document.getElementById('poem-title').textContent = '';
+    document.getElementById('poem-content').innerHTML =
+      '<div class="poem-placeholder">Waiting for words to emerge…</div>';
+    document.getElementById('poem-attribution').className = 'poem-attribution';
+    document.getElementById('story-count').textContent = '';
+
+    try {
+      // 1. Fetch
+      setStatus('Fetching headlines from Hacker News…', true);
+      const titles = await fetchTitles(20);
+      document.getElementById('story-count').textContent = `${titles.length} stories`;
+      setStatus(`${titles.length} headlines loaded — consulting ${provider === 'groq' ? 'Groq' : 'Gemini'}…`, true);
+
+      // 2. Tokenize & render
+      const tokens = tokenize(titles);
+      renderTokens(tokens);
+
+      // 3. LLM
+      const result = await callLLM(titles, provider, apiKey);
+      const poemWords = Array.isArray(result.poem) ? result.poem : [];
+      const poemTitle = result.title || 'untitled';
+
+      if (!poemWords.length) throw new Error('The model returned no poem words');
+
+      setStatus(`${poemWords.length} words chosen — blacking out the rest…`, true);
+
+      // 4. Match & animate
+      const selectedIds  = matchPoem(tokens, poemWords);
+      const animDuration = animateBlackout(tokens, selectedIds);
+
+      // 5. Render poem (starts partway through animation)
+      renderPoem(poemWords, poemTitle, animDuration);
+
+      // 6. Finish
+      setTimeout(() => {
+        setStatus(`Done — ${selectedIds.size} words survived today's front page.`, false);
+        btn.disabled = false;
+      }, animDuration + 1200);
+
+    } catch (err) {
+      setStatus(`Error: ${err.message}`, false);
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
