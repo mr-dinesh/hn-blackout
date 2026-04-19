@@ -10,11 +10,12 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Special+Elite&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
+    /* ── THEMES ── */
+    :root[data-theme="newsprint"] {
       --newsprint:      #f4ede0;
       --newsprint-dark: #e8dcca;
       --ink:            #2a2118;
@@ -26,14 +27,86 @@
       --gold:           #c4a35a;
       --cream:          #e8d9c0;
       --cream-dim:      #7a6e62;
+      --paper-font:     'IM Fell English', Georgia, serif;
+      --poem-font:      'Playfair Display', serif;
+      --paper-lines:    rgba(42,33,24,0.055);
+    }
+
+    :root[data-theme="ink"] {
+      --newsprint:      #ffffff;
+      --newsprint-dark: #eeeeee;
+      --ink:            #000000;
+      --ink-light:      #444444;
+      --marker:         #000000;
+      --dark-bg:        #111111;
+      --dark-surface:   #1a1a1a;
+      --dark-border:    #333333;
+      --gold:           #ffffff;
+      --cream:          #eeeeee;
+      --cream-dim:      #888888;
+      --paper-font:     'Special Elite', Georgia, serif;
+      --poem-font:      'Special Elite', serif;
+      --paper-lines:    rgba(0,0,0,0.07);
+    }
+
+    :root[data-theme="amber"] {
+      --newsprint:      #1a1200;
+      --newsprint-dark: #120e00;
+      --ink:            #ffb300;
+      --ink-light:      #cc8f00;
+      --marker:         #0a0800;
+      --dark-bg:        #0a0800;
+      --dark-surface:   #110f00;
+      --dark-border:    #332800;
+      --gold:           #ffb300;
+      --cream:          #ffd54f;
+      --cream-dim:      #997a00;
+      --paper-font:     'Share Tech Mono', monospace;
+      --poem-font:      'Share Tech Mono', monospace;
+      --paper-lines:    rgba(255,179,0,0.06);
+    }
+
+    :root[data-theme="times"] {
+      --newsprint:      #ffffff;
+      --newsprint-dark: #f5f5f5;
+      --ink:            #121212;
+      --ink-light:      #555555;
+      --marker:         #121212;
+      --dark-bg:        #f0ede8;
+      --dark-surface:   #e8e4de;
+      --dark-border:    #ccc8c0;
+      --gold:           #326891;
+      --cream:          #121212;
+      --cream-dim:      #666666;
+      --paper-font:     'Playfair Display', Georgia, serif;
+      --poem-font:      'Playfair Display', serif;
+      --paper-lines:    rgba(0,0,0,0.04);
+    }
+
+    :root[data-theme="dusk"] {
+      --newsprint:      #1e1a2e;
+      --newsprint-dark: #171425;
+      --ink:            #c5b8e8;
+      --ink-light:      #8a7cb8;
+      --marker:         #0d0b18;
+      --dark-bg:        #0d0b18;
+      --dark-surface:   #141120;
+      --dark-border:    #2d2850;
+      --gold:           #c084fc;
+      --cream:          #e2d9f3;
+      --cream-dim:      #6d5fa0;
+      --paper-font:     'IM Fell English', Georgia, serif;
+      --poem-font:      'Playfair Display', serif;
+      --paper-lines:    rgba(197,184,232,0.045);
     }
 
     body {
       background: var(--dark-bg);
       color: var(--cream);
-      font-family: 'IM Fell English', Georgia, serif;
+      font-family: var(--paper-font);
       min-height: 100vh;
       overflow-x: hidden;
+      transition: background 0.4s, color 0.4s;
     }
 
     /* ── MASTHEAD ── */
@@ -41,6 +114,7 @@
       background: var(--newsprint);
       color: var(--ink);
       padding: 0 32px 0;
+      transition: background 0.4s, color 0.4s;
     }
 
     .rule-thick { height: 4px; background: var(--ink); }
@@ -51,7 +125,7 @@
       justify-content: space-between;
       align-items: baseline;
       padding: 5px 0;
-      font-family: 'IM Fell English', serif;
+      font-family: var(--paper-font);
       font-size: 0.6rem;
       letter-spacing: 2.5px;
       text-transform: uppercase;
@@ -66,7 +140,7 @@
     }
 
     .masthead-center h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--poem-font);
       font-weight: 900;
       font-size: clamp(2.8rem, 9vw, 5.5rem);
       letter-spacing: 14px;
@@ -76,7 +150,7 @@
     }
 
     .masthead-tagline {
-      font-family: 'IM Fell English', serif;
+      font-family: var(--paper-font);
       font-style: italic;
       font-size: 0.78rem;
       letter-spacing: 3px;
@@ -96,6 +170,7 @@
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
+      transition: background 0.4s;
     }
 
     .lbl {
@@ -109,22 +184,48 @@
 
     .settings-bar select,
     .settings-bar input[type="password"] {
-      background: #1b1916;
-      border: 1px solid #38332e;
+      background: var(--dark-bg);
+      border: 1px solid var(--dark-border);
       color: var(--cream);
       padding: 6px 10px;
       font-family: 'Courier New', monospace;
       font-size: 0.78rem;
       border-radius: 2px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.4s;
     }
 
-    .settings-bar select { width: 190px; cursor: pointer; }
-    .settings-bar input[type="password"] { width: 250px; }
+    .settings-bar select { cursor: pointer; }
+    #sel-provider { width: 190px; }
+    #sel-page     { width: 150px; }
+    .settings-bar input[type="password"] { width: 220px; }
 
     .settings-bar select:focus,
     .settings-bar input:focus { border-color: var(--gold); }
+
+    /* ── THEME SWITCHER ── */
+    .theme-switcher {
+      display: flex;
+      gap: 5px;
+      margin-left: 4px;
+    }
+
+    .theme-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .theme-btn:hover   { transform: scale(1.15); }
+    .theme-btn.active  { border-color: var(--gold); }
+    .theme-btn[data-theme="newsprint"] { background: radial-gradient(circle at 40% 40%, #f4ede0, #2a2118); }
+    .theme-btn[data-theme="ink"]       { background: radial-gradient(circle at 40% 40%, #ffffff, #111111); }
+    .theme-btn[data-theme="amber"]     { background: radial-gradient(circle at 40% 40%, #ffb300, #0a0800); }
+    .theme-btn[data-theme="dusk"]      { background: radial-gradient(circle at 40% 40%, #c084fc, #0d0b18); }
+    .theme-btn[data-theme="times"]     { background: radial-gradient(circle at 40% 40%, #ffffff, #326891); }
 
     #btn-generate {
       margin-left: auto;
@@ -132,7 +233,7 @@
       color: var(--ink);
       border: none;
       padding: 8px 26px;
-      font-family: 'Playfair Display', serif;
+      font-family: var(--poem-font);
       font-weight: 700;
       font-size: 0.82rem;
       letter-spacing: 3px;
@@ -142,7 +243,7 @@
       transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
     }
     #btn-generate:hover:not(:disabled) {
-      background: #fff;
+      filter: brightness(1.08);
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
@@ -158,6 +259,7 @@
       align-items: center;
       gap: 8px;
       min-height: 26px;
+      transition: background 0.4s;
     }
 
     .s-dot {
@@ -198,17 +300,18 @@
         0deg,
         transparent,
         transparent 30px,
-        rgba(42, 33, 24, 0.055) 30px,
-        rgba(42, 33, 24, 0.055) 31px
+        var(--paper-lines) 30px,
+        var(--paper-lines) 31px
       );
       padding: 20px 32px 48px 28px;
       border-right: 3px double var(--ink);
       position: relative;
       overflow-y: auto;
+      transition: background 0.4s;
     }
 
     .col-header {
-      font-family: 'IM Fell English', serif;
+      font-family: var(--paper-font);
       font-size: 0.58rem;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -221,7 +324,7 @@
     }
 
     #word-grid {
-      font-family: 'IM Fell English', serif;
+      font-family: var(--paper-font);
       font-size: 0.92rem;
       color: var(--ink);
       line-height: 2.35;
@@ -240,7 +343,7 @@
 
     @keyframes marker-stroke {
       0%   { background: transparent; color: var(--ink); }
-      30%  { background: #2a2118;     color: #2a2118;    }
+      30%  { background: var(--ink-light); color: var(--ink-light); }
       100% { background: var(--marker); color: var(--marker); }
     }
 
@@ -272,9 +375,9 @@
       padding: 32px 36px 36px;
       position: relative;
       overflow: hidden;
+      transition: background 0.4s;
     }
 
-    /* faint grid texture */
     .poem-panel::before {
       content: '';
       position: absolute;
@@ -300,7 +403,7 @@
     }
 
     #poem-title {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--poem-font);
       font-style: italic;
       font-size: 0.95rem;
       color: var(--gold);
@@ -323,7 +426,7 @@
     }
 
     .poem-word-line {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--poem-font);
       font-style: italic;
       font-size: clamp(1.6rem, 3.2vw, 2.4rem);
       font-weight: 400;
@@ -339,7 +442,7 @@
     }
 
     .poem-placeholder {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--poem-font);
       font-style: italic;
       font-size: 1rem;
       color: var(--cream-dim);
@@ -350,7 +453,7 @@
     }
 
     #poem-attribution {
-      font-family: 'IM Fell English', serif;
+      font-family: var(--paper-font);
       font-style: italic;
       font-size: 0.72rem;
       color: var(--cream-dim);
@@ -374,6 +477,7 @@
       font-size: 0.62rem;
       letter-spacing: 2px;
       color: var(--cream-dim);
+      transition: background 0.4s;
     }
     .site-footer a {
       color: var(--gold);
@@ -387,6 +491,7 @@
       .newspaper-panel { border-right: none; border-bottom: 3px double var(--ink); }
       .masthead-center h1 { font-size: 2.6rem; letter-spacing: 7px; }
       .masthead-meta span:last-child { display: none; }
+      #sel-page { width: 120px; }
     }
   </style>
 </head>
@@ -410,13 +515,33 @@
 
 <!-- SETTINGS -->
 <div class="settings-bar">
+  <span class="lbl">Page</span>
+  <select id="sel-page">
+    <option value="top">Top Stories</option>
+    <option value="best">Best Stories</option>
+    <option value="new">New Stories</option>
+    <option value="ask">Ask HN</option>
+    <option value="show">Show HN</option>
+  </select>
+
   <span class="lbl">Provider</span>
   <select id="provider">
     <option value="groq">Groq — llama-3.3-70b</option>
     <option value="gemini">Gemini — Flash 2.0</option>
   </select>
+
   <span class="lbl">API Key</span>
   <input type="password" id="api-key" placeholder="paste key here" autocomplete="off" spellcheck="false" />
+
+  <span class="lbl">Theme</span>
+  <div class="theme-switcher">
+    <button class="theme-btn active" data-theme="newsprint" title="Newsprint"></button>
+    <button class="theme-btn"        data-theme="ink"       title="Ink"></button>
+    <button class="theme-btn"        data-theme="amber"     title="Amber"></button>
+    <button class="theme-btn"        data-theme="dusk"      title="Dusk"></button>
+    <button class="theme-btn"        data-theme="times"     title="Times"></button>
+  </div>
+
   <button id="btn-generate">Generate Poem</button>
 </div>
 
@@ -431,7 +556,7 @@
 
   <div class="newspaper-panel">
     <div class="col-header">
-      <span>Today's Front Page — Hacker News</span>
+      <span id="panel-label">Today's Front Page — Hacker News</span>
       <span id="story-count"></span>
     </div>
     <div id="word-grid">
@@ -459,6 +584,44 @@
   document.getElementById('today-date').textContent =
     new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
 
+  // ── Theme ─────────────────────────────────────────────────────────────
+  const THEMES = ['newsprint', 'ink', 'amber', 'dusk', 'times'];
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+    localStorage.setItem('hn_blackout_theme', theme);
+  }
+
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
+  });
+
+  applyTheme(localStorage.getItem('hn_blackout_theme') || 'newsprint');
+
+  // ── Page labels ───────────────────────────────────────────────────────
+  const PAGE_LABELS = {
+    top:  "Top Stories — Hacker News",
+    best: "Best Stories — Hacker News",
+    new:  "New Stories — Hacker News",
+    ask:  "Ask HN",
+    show: "Show HN",
+  };
+
+  const PAGE_ATTR = {
+    top:  "— Found in today's Hacker News top stories",
+    best: "— Found in today's Hacker News best stories",
+    new:  "— Found in today's Hacker News new stories",
+    ask:  "— Found in today's Ask HN",
+    show: "— Found in today's Show HN",
+  };
+
+  document.getElementById('sel-page').addEventListener('change', e => {
+    document.getElementById('panel-label').textContent = PAGE_LABELS[e.target.value];
+  });
+
   // ── Persist API keys ──────────────────────────────────────────────────
   const providerEl = document.getElementById('provider');
   const apiKeyEl   = document.getElementById('api-key');
@@ -480,9 +643,17 @@
 
   // ── HN API ────────────────────────────────────────────────────────────
   const HN = 'https://hacker-news.firebaseio.com/v0';
+  const HN_ENDPOINTS = {
+    top:  'topstories',
+    best: 'beststories',
+    new:  'newstories',
+    ask:  'askstories',
+    show: 'showstories',
+  };
 
-  async function fetchTitles(n = 20) {
-    const ids   = await fetch(`${HN}/topstories.json`).then(r => r.json());
+  async function fetchTitles(page = 'top', n = 20) {
+    const endpoint = HN_ENDPOINTS[page] || 'topstories';
+    const ids   = await fetch(`${HN}/${endpoint}.json`).then(r => r.json());
     const items = await Promise.all(
       ids.slice(0, n).map(id => fetch(`${HN}/item/${id}.json`).then(r => r.json()))
     );
@@ -518,7 +689,7 @@
       }
       const span = document.createElement('span');
       span.className = 'word';
-      span.textContent = tok.raw + '\u00a0'; // nbsp for spacing
+      span.textContent = tok.raw + '\u00a0';
       spanMap.set(tok.id, span);
       grid.appendChild(span);
     });
@@ -528,7 +699,7 @@
   function strip(s) { return s.replace(/[.,;:!?()\[\]'"''"–—]+$/g, ''); }
 
   function matchPoem(tokens, poemWords) {
-    const usedIds    = new Set();
+    const usedIds     = new Set();
     const selectedIds = new Set();
     for (const word of poemWords) {
       let tok =
@@ -548,7 +719,7 @@
   async function callLLM(titles, provider, apiKey) {
     const numbered = titles.map((t, i) => `${i + 1}. ${t}`).join('\n');
     const prompt =
-`You are a blackout poet in the style of Austin Kleon. From these Hacker News front page headlines, select exactly 10–15 words that form a haunting, evocative poem when read in sequence.
+`You are a blackout poet in the style of Austin Kleon. From these Hacker News headlines, select exactly 10–15 words that form a haunting, evocative poem when read in sequence.
 
 Rules:
 - Each word MUST appear exactly as written in the headlines (preserve capitalisation and any attached punctuation)
@@ -620,7 +791,7 @@ ${numbered}`;
   }
 
   // ── Render poem ───────────────────────────────────────────────────────
-  function renderPoem(poemWords, poemTitle, animDelay) {
+  function renderPoem(poemWords, poemTitle, animDelay, page) {
     const titleEl   = document.getElementById('poem-title');
     const contentEl = document.getElementById('poem-content');
     const attrEl    = document.getElementById('poem-attribution');
@@ -629,7 +800,6 @@ ${numbered}`;
     attrEl.className   = 'poem-attribution';
     contentEl.innerHTML = '';
 
-    // Title appears first, after 40% of animation
     const wordStart = animDelay * 0.38;
 
     setTimeout(() => {
@@ -637,7 +807,6 @@ ${numbered}`;
       requestAnimationFrame(() => titleEl.classList.add('visible'));
     }, wordStart);
 
-    // Words appear one by one
     poemWords.forEach((word, i) => {
       const el = document.createElement('div');
       el.className = 'poem-word-line';
@@ -648,8 +817,8 @@ ${numbered}`;
       }, wordStart + 180 + i * 190);
     });
 
-    // Attribution last
     setTimeout(() => {
+      attrEl.textContent = PAGE_ATTR[page] || PAGE_ATTR.top;
       attrEl.classList.add('visible');
     }, wordStart + 180 + poemWords.length * 190 + 600);
   }
@@ -658,6 +827,7 @@ ${numbered}`;
   document.getElementById('btn-generate').addEventListener('click', async () => {
     const apiKey   = apiKeyEl.value.trim();
     const provider = providerEl.value;
+    const page     = document.getElementById('sel-page').value;
 
     if (!apiKey) {
       setStatus('Please enter an API key first.');
@@ -668,44 +838,38 @@ ${numbered}`;
     const btn = document.getElementById('btn-generate');
     btn.disabled = true;
 
-    // Reset poem panel
     document.getElementById('poem-title').className  = 'poem-title';
     document.getElementById('poem-title').textContent = '';
     document.getElementById('poem-content').innerHTML =
       '<div class="poem-placeholder">Waiting for words to emerge…</div>';
     document.getElementById('poem-attribution').className = 'poem-attribution';
     document.getElementById('story-count').textContent = '';
+    document.getElementById('panel-label').textContent = PAGE_LABELS[page];
 
     try {
-      // 1. Fetch
-      setStatus('Fetching headlines from Hacker News…', true);
-      const titles = await fetchTitles(20);
+      setStatus(`Fetching ${PAGE_LABELS[page]}…`, true);
+      const titles = await fetchTitles(page, 20);
       document.getElementById('story-count').textContent = `${titles.length} stories`;
       setStatus(`${titles.length} headlines loaded — consulting ${provider === 'groq' ? 'Groq' : 'Gemini'}…`, true);
 
-      // 2. Tokenize & render
       const tokens = tokenize(titles);
       renderTokens(tokens);
 
-      // 3. LLM
-      const result = await callLLM(titles, provider, apiKey);
-      const poemWords = Array.isArray(result.poem) ? result.poem : [];
-      const poemTitle = result.title || 'untitled';
+      const result     = await callLLM(titles, provider, apiKey);
+      const poemWords  = Array.isArray(result.poem) ? result.poem : [];
+      const poemTitle  = result.title || 'untitled';
 
       if (!poemWords.length) throw new Error('The model returned no poem words');
 
       setStatus(`${poemWords.length} words chosen — blacking out the rest…`, true);
 
-      // 4. Match & animate
       const selectedIds  = matchPoem(tokens, poemWords);
       const animDuration = animateBlackout(tokens, selectedIds);
 
-      // 5. Render poem (starts partway through animation)
-      renderPoem(poemWords, poemTitle, animDuration);
+      renderPoem(poemWords, poemTitle, animDuration, page);
 
-      // 6. Finish
       setTimeout(() => {
-        setStatus(`Done — ${selectedIds.size} words survived today's front page.`, false);
+        setStatus(`Done — ${selectedIds.size} words survived today's ${PAGE_LABELS[page].toLowerCase()}.`, false);
         btn.disabled = false;
       }, animDuration + 1200);
 
