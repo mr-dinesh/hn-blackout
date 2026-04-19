@@ -241,6 +241,7 @@
       cursor: pointer;
       border-radius: 2px;
       transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      min-width: 160px;
     }
     #btn-generate:hover:not(:disabled) {
       filter: brightness(1.08);
@@ -249,6 +250,24 @@
     }
     #btn-generate:active:not(:disabled) { transform: translateY(0); }
     #btn-generate:disabled { opacity: 0.35; cursor: not-allowed; }
+    #btn-generate.cooling {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background: var(--newsprint-dark);
+    }
+
+    .usage-badge {
+      font-family: 'Courier New', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      color: var(--cream-dim);
+      padding: 4px 8px;
+      border: 1px solid var(--dark-border);
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .usage-badge.warn { color: var(--gold); border-color: var(--gold); }
+    .usage-badge.maxed { color: #e05; border-color: #e05; }
 
     /* ── STATUS ── */
     .status-bar {
@@ -542,6 +561,7 @@
     <button class="theme-btn"        data-theme="times"     title="Times"></button>
   </div>
 
+  <span class="usage-badge" id="usage-badge">— / 10 today</span>
   <button id="btn-generate">Generate Poem</button>
 </div>
 
@@ -823,6 +843,74 @@ ${numbered}`;
     }, wordStart + 180 + poemWords.length * 190 + 600);
   }
 
+  // ── Throttle ──────────────────────────────────────────────────────────
+  const COOLDOWN_MS  = 30_000;  // 30s between generations
+  const DAILY_LIMIT  = 10;      // per provider per day
+
+  function todayKey(provider) {
+    return `hn_blackout_count_${provider}_${new Date().toISOString().slice(0,10)}`;
+  }
+
+  function getDailyCount(provider) {
+    return parseInt(localStorage.getItem(todayKey(provider)) || '0', 10);
+  }
+
+  function incrementDailyCount(provider) {
+    const key = todayKey(provider);
+    localStorage.setItem(key, getDailyCount(provider) + 1);
+  }
+
+  function getLastGenTime(provider) {
+    return parseInt(localStorage.getItem(`hn_blackout_last_${provider}`) || '0', 10);
+  }
+
+  function setLastGenTime(provider) {
+    localStorage.setItem(`hn_blackout_last_${provider}`, Date.now());
+  }
+
+  function cooldownRemaining(provider) {
+    return Math.max(0, COOLDOWN_MS - (Date.now() - getLastGenTime(provider)));
+  }
+
+  let cooldownTimer = null;
+
+  function updateUsageBadge(provider) {
+    const count = getDailyCount(provider);
+    const badge = document.getElementById('usage-badge');
+    badge.textContent = `${count} / ${DAILY_LIMIT} today`;
+    badge.className = 'usage-badge' + (count >= DAILY_LIMIT ? ' maxed' : count >= DAILY_LIMIT * 0.7 ? ' warn' : '');
+  }
+
+  function startCooldownUI(provider) {
+    const btn = document.getElementById('btn-generate');
+    if (cooldownTimer) clearInterval(cooldownTimer);
+
+    function tick() {
+      const ms = cooldownRemaining(provider);
+      if (ms <= 0) {
+        clearInterval(cooldownTimer);
+        btn.textContent = 'Generate Poem';
+        btn.classList.remove('cooling');
+        btn.disabled = false;
+      } else {
+        btn.textContent = `Wait ${Math.ceil(ms / 1000)}s`;
+        btn.classList.add('cooling');
+        btn.disabled = true;
+      }
+    }
+    tick();
+    cooldownTimer = setInterval(tick, 500);
+  }
+
+  // Update badge when provider changes
+  providerEl.addEventListener('change', () => updateUsageBadge(providerEl.value));
+  updateUsageBadge(providerEl.value);
+
+  // Restore cooldown on page load (survives refresh)
+  if (cooldownRemaining(providerEl.value) > 0) {
+    startCooldownUI(providerEl.value);
+  }
+
   // ── Main ──────────────────────────────────────────────────────────────
   document.getElementById('btn-generate').addEventListener('click', async () => {
     const apiKey   = apiKeyEl.value.trim();
@@ -832,6 +920,17 @@ ${numbered}`;
     if (!apiKey) {
       setStatus('Please enter an API key first.');
       apiKeyEl.focus();
+      return;
+    }
+
+    if (cooldownRemaining(provider) > 0) {
+      setStatus(`Please wait ${Math.ceil(cooldownRemaining(provider) / 1000)}s before generating again.`);
+      return;
+    }
+
+    const count = getDailyCount(provider);
+    if (count >= DAILY_LIMIT) {
+      setStatus(`Daily limit of ${DAILY_LIMIT} poems reached for ${provider === 'groq' ? 'Groq' : 'Gemini'}. Try again tomorrow.`);
       return;
     }
 
@@ -861,6 +960,11 @@ ${numbered}`;
 
       if (!poemWords.length) throw new Error('The model returned no poem words');
 
+      // Record usage
+      incrementDailyCount(provider);
+      setLastGenTime(provider);
+      updateUsageBadge(provider);
+
       setStatus(`${poemWords.length} words chosen — blacking out the rest…`, true);
 
       const selectedIds  = matchPoem(tokens, poemWords);
@@ -869,8 +973,9 @@ ${numbered}`;
       renderPoem(poemWords, poemTitle, animDuration, page);
 
       setTimeout(() => {
-        setStatus(`Done — ${selectedIds.size} words survived today's ${PAGE_LABELS[page].toLowerCase()}.`, false);
-        btn.disabled = false;
+        const remaining = DAILY_LIMIT - getDailyCount(provider);
+        setStatus(`Done — ${selectedIds.size} words survived. ${remaining} poem${remaining !== 1 ? 's' : ''} left today.`, false);
+        startCooldownUI(provider);
       }, animDuration + 1200);
 
     } catch (err) {
