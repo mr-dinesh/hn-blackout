@@ -37,6 +37,34 @@ No API key needed in the browser.
 wrangler pages deploy . --project-name hn-blackout --branch main
 ```
 
+## Daily bot (Bluesky + Mastodon)
+
+Once a day at 09:00 IST, a GitHub Action (`.github/workflows/post-poem.yml`) runs `bot/post_poem.py`, which:
+
+1. pulls the top 20 HN headlines,
+2. gets a poem from the live `/api/poem` endpoint (retrying if fewer than 6 of its words are found in the headlines),
+3. draws a 3-panel image with Pillow — the front page, the same page blacked out, the found poem — in the site's newsprint theme and fonts,
+4. posts it with alt text to Bluesky and/or Mastodon,
+5. commits `bot/posted.json`, so a second run that day skips, and so GitHub doesn't disable the schedule after 60 quiet days.
+
+Repo secrets (a platform is skipped if its secrets aren't set):
+
+| Secret | Value |
+|---|---|
+| `BSKY_HANDLE` | e.g. `hnblackout.bsky.social` |
+| `BSKY_APP_PASSWORD` | Bluesky → Settings → Privacy and security → App passwords |
+| `MASTODON_ACCESS_TOKEN` | Preferences → Development → New application, scopes `write:statuses` + `write:media` |
+| `MASTODON_INSTANCE_URL` | optional, defaults to `https://mastodon.social` |
+
+Preview without posting:
+
+```bash
+pip install -r bot/requirements.txt
+python bot/post_poem.py --dry-run   # writes bot/out/preview.png and prints the post text
+```
+
+Fonts (IM Fell English, Playfair Display) are vendored in `bot/fonts/` under the SIL Open Font License.
+
 ## Example output
 
 From a real run on April 18, 2026:

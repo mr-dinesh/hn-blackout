@@ -32,6 +32,8 @@ Rules:
 - Return ONLY valid JSON: {"title": "short evocative poem title", "poem": ["word1", "word2", ...]}
 - Prefer unexpected juxtapositions — fragments that resonate, feel mysterious, human, or strange
 - Avoid mundane connectives: and, the, a, of, in, to, for, is, are, was, with, on, at, by, an
+- Draw words from many different headlines, not just the first word of each
+- The title is 2–5 words of your own that fit this particular poem. Never use a stock one-word title such as "Echoes", "Fragments", "Whispers" or "Untitled"
 
 Headlines:
 ${numbered}`;
