@@ -40,5 +40,45 @@
       "Show HN: Vegetable Gardening for Engineers"
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3mztw724p4y2o"
+  },
+  {
+    "date": "2026-11-09",
+    "title": "Silicon Mirrors",
+    "poem": [
+      "KetchUp",
+      "Chimera",
+      "Unlocking",
+      "Dux",
+      "Quietly",
+      "Rejecting",
+      "RIP",
+      "Llama-modchip",
+      "Air",
+      "holes"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "KetchUp – Open-source SketchUp alternative built with Rust and WebGPU",
+      "Unlocking any car from X brand in most of the world",
+      "Chimera Vocal Synth",
+      "Dux: Free, open-source Wayland desktop shell with file manager and theming",
+      "Declarative Dragging",
+      "Outlook.com Is Quietly Rejecting Email from Domains Without DMARC",
+      "Ask HN: What are you working on? (November 2026)",
+      "Herb Sutter: When a language's creator and its owners strongly disagree [pdf]",
+      "The Web Is More Than Enough, by Paul Ford",
+      "Goldman Sachs is pulling Claude Code from its bankers and traders",
+      "RIP, Harvest",
+      "Llama-modchip: 284B DeepSeek on 64GB RAM, no GPU",
+      "Taco: The Tensor Algebra Compiler",
+      "Air holes turn silicon wafers into flat UV focusing mirrors for compact optics",
+      "Writing as a thinking tool",
+      "The History of Djgpp (1998)",
+      "Ask HN: How do you manage your AI agents' context across clients and projects?",
+      "Playing with the STM32MP2",
+      "How I Fight AI Brain Fry",
+      "Edward Hopper's Iconic Painting, \"Nighthawks"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3mztxd6kzcs2q"
   }
 ]
