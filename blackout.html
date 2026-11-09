@@ -363,6 +363,16 @@
 
     .word.blacked-out {
       animation: marker-stroke 0.12s ease-out forwards;
+      cursor: help;
+    }
+
+    /* Hover (or tap, on touch screens) to peek under the marker. The
+       animation's "forwards" fill would otherwise keep the text black. */
+    .word.blacked-out:hover,
+    .word.blacked-out.peek {
+      animation: none;
+      background: var(--marker);
+      color: rgba(255, 255, 255, 0.72);
     }
 
     @keyframes marker-stroke {
@@ -675,6 +685,12 @@
     });
     return tokens;
   }
+
+  // ── Tap to peek (touch screens have no hover) ─────────────────────────
+  document.getElementById('word-grid').addEventListener('click', e => {
+    const w = e.target.closest('.word.blacked-out');
+    if (w) w.classList.toggle('peek');
+  });
 
   // ── Render tokens ─────────────────────────────────────────────────────
   let spanMap = new Map();
