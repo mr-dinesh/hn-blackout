@@ -41,6 +41,8 @@ OUT_DIR = HERE / "out"
 HN = "https://hacker-news.firebaseio.com/v0"
 POEM_API = os.getenv("POEM_API", "https://hn-blackout.pages.dev/api/poem")
 SITE = "https://hn-blackout.pages.dev/"
+BLOG = "https://mrdee.in/vibecoding/vibecoding-031-hn-blackout-bot/"
+BLOG_LABEL = "How this bot works"
 UA = "hn-blackout-bot (+https://github.com/mr-dinesh/hn-blackout)"
 
 N_HEADLINES = 20
@@ -307,7 +309,9 @@ def post_text(poem_title, poem_words):
     head = f"“{poem_title}”\n\n"
     tail = "\n\nFound in today's Hacker News front page."
     # Bluesky allows 300 graphemes; leave room for the link line and tags
-    room = 300 - len(head) - len(tail) - len(SITE) - 1 - sum(len(t) + 2 for t in TAGS)
+    # (Bluesky link facets count only their display text, not the URL)
+    links = len(SITE.removeprefix("https://").rstrip("/")) + 3 + len(BLOG_LABEL) + 1
+    room = 300 - len(head) - len(tail) - links - sum(len(t) + 2 for t in TAGS)
     if len(body) > room:
         body = body[: room - 1].rsplit(" ", 1)[0] + "…"
     return head + body + tail
@@ -332,7 +336,9 @@ def post_bluesky(text, image, mime, alt, size):
     # A leading "@" makes Bluesky treat the handle as an email address
     handle = os.environ["BSKY_HANDLE"].strip().lstrip("@")
     client.login(handle, os.environ["BSKY_APP_PASSWORD"].strip())
-    tb = client_utils.TextBuilder().text(text + "\n").link(SITE.removeprefix("https://").rstrip("/"), SITE)
+    tb = (client_utils.TextBuilder().text(text + "\n")
+          .link(SITE.removeprefix("https://").rstrip("/"), SITE)
+          .text(" · ").link(BLOG_LABEL, BLOG))
     for t in TAGS:
         tb.text(" ").tag(f"#{t}", t)
     res = client.send_image(
@@ -349,7 +355,7 @@ def post_mastodon(text, image, mime, alt):
                  api_base_url=os.getenv("MASTODON_INSTANCE_URL") or "https://mastodon.social",
                  user_agent=UA)
     media = m.media_post(io.BytesIO(image), mime_type=mime, description=alt, synchronous=True)
-    status = m.status_post(text + "\n" + SITE + "\n\n" + " ".join(f"#{t}" for t in TAGS),
+    status = m.status_post(text + "\n" + SITE + "\n" + f"{BLOG_LABEL}: {BLOG}" + "\n\n" + " ".join(f"#{t}" for t in TAGS),
                            media_ids=[media], visibility="public")
     return status["url"]
 
@@ -408,7 +414,7 @@ def main():
         OUT_DIR.mkdir(exist_ok=True)
         out = OUT_DIR / ("preview.png" if mime == "image/png" else "preview.jpg")
         out.write_bytes(image)
-        print(f"\n{text}\n{SITE}\n\nalt ({len(alt)} chars): {alt}\n\nimage: {out} ({len(image) // 1024} KB)")
+        print(f"\n{text}\n{SITE} · {BLOG_LABEL} → {BLOG}\n\nalt ({len(alt)} chars): {alt}\n\nimage: {out} ({len(image) // 1024} KB)")
         return
 
     entry = {"date": today.isoformat(), "title": poem_title, "poem": poem_words,
