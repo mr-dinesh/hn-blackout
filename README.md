@@ -25,7 +25,7 @@ Each run produces a different poem — the headlines change daily, and the LLM m
 The poem comes from a Cloudflare Pages Function, so run it with Wrangler (the AI binding calls Workers AI on your account):
 
 ```bash
-wrangler pages dev .
+wrangler pages dev        # serves site/ plus functions/
 # then open http://localhost:8788/
 ```
 
@@ -34,7 +34,7 @@ No API key needed in the browser.
 ## Deploying
 
 ```bash
-wrangler pages deploy . --project-name hn-blackout --branch main
+wrangler pages deploy --project-name hn-blackout --branch main   # uploads only site/ (+ functions/)
 ```
 
 ## Daily bot (Bluesky + Mastodon)
@@ -92,7 +92,7 @@ The original HN headlines — "hay fever" and "gunpowder" from a history piece, 
 
 ## Architecture
 
-`blackout.html` holds the UI and runs in the browser. One Pages Function, `functions/api/poem.js`, does the LLM call. No build step.
+`site/blackout.html` holds the UI and runs in the browser (`site/` is the only folder Pages publishes; `wrangler.toml` points at it). One Pages Function, `functions/api/poem.js`, does the LLM call. No build step.
 
 - HN data: [Firebase HN API](https://hacker-news.firebaseio.com/v0/) — public, no key needed
 - `POST /api/poem`: takes `{titles: [...]}` (1–30 strings), builds the prompt server-side, calls Workers AI through the `AI` binding (`wrangler.toml`), and returns JSON `{title, poem: [words]}`. Models are tried in order, so one retirement falls through to the next.
