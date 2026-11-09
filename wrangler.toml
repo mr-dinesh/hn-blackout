@@ -1,0 +1,6 @@
+name = "hn-blackout"
+pages_build_output_dir = "."
+compatibility_date = "2026-04-22"
+
+[ai]
+binding = "AI"

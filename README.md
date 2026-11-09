@@ -13,7 +13,7 @@ Inspired by [Austin Kleon's blackout poetry](https://austinkleon.com/category/ne
 ## What it does
 
 1. Pulls the top 20 stories from the HN Firebase API
-2. Sends the headlines to your LLM of choice (Groq or Gemini)
+2. Sends the headlines to Cloudflare Workers AI (`llama-3.3-70b`, with a Mistral fallback)
 3. The LLM selects words that form an evocative poem when read in sequence
 4. The page animates: non-selected words are blacked out one by one
 5. The surviving words appear as a found poem on the right panel
@@ -22,28 +22,20 @@ Each run produces a different poem — the headlines change daily, and the LLM m
 
 ## Running
 
-No server, no install. Just open the file:
+The poem comes from a Cloudflare Pages Function, so run it with Wrangler (the AI binding calls Workers AI on your account):
 
 ```bash
-xdg-open blackout.html   # Linux
-open blackout.html        # macOS
+wrangler pages dev .
+# then open http://localhost:8788/
 ```
 
-Or serve it locally if you hit CORS issues:
+No API key needed in the browser.
+
+## Deploying
 
 ```bash
-python3 -m http.server 8080
-# then open http://localhost:8080/blackout.html
+wrangler pages deploy . --project-name hn-blackout --branch main
 ```
-
-## API Keys
-
-You need a free API key from one of:
-
-- **[Groq](https://console.groq.com)** — free tier, fast, uses `llama-3.3-70b-versatile`
-- **[Google AI Studio](https://aistudio.google.com)** — free tier, uses `gemini-2.0-flash`
-
-Keys are stored in `localStorage` — never sent anywhere except the provider's API directly from your browser.
 
 ## Example output
 
@@ -69,10 +61,10 @@ The original HN headlines — "hay fever" and "gunpowder" from a history piece, 
 
 ## Architecture
 
-Single static HTML file (`blackout.html`). All logic runs in the browser — no backend, no build step.
+`blackout.html` holds the UI and runs in the browser. One Pages Function, `functions/api/poem.js`, does the LLM call. No build step.
 
 - HN data: [Firebase HN API](https://hacker-news.firebaseio.com/v0/) — public, no key needed
-- LLM prompt: instructs the model to behave as a blackout poet, return JSON `{title, poem: [words]}`
+- `POST /api/poem`: takes `{titles: [...]}` (1–30 strings), builds the prompt server-side, calls Workers AI through the `AI` binding (`wrangler.toml`), and returns JSON `{title, poem: [words]}`. Models are tried in order, so one retirement falls through to the next.
 - Tokenizer: splits each headline into word tokens, tracks which title each belongs to
 - Matcher: finds each poem word in the token list (exact → case-insensitive → strip-punctuation fallback)
 - Animation: non-selected words blacked out with a CSS marker-stroke keyframe, staggered across ~3.6 seconds
