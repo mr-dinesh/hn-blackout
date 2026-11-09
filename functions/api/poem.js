@@ -16,6 +16,27 @@ const SCHEMA = {
   required: ["title", "poem"],
 };
 
+// Llama keeps titling poems "Echoes" despite the prompt, and JSON mode makes
+// retries return the same answer. A stock title gets one plain-text re-ask.
+const STOCK_TITLE = /^(echoes?|fragments?|whispers?|untitled|silence|reflections?)$/i;
+
+async function freshTitle(env, model, poem) {
+  try {
+    const r = await env.AI.run(model, {
+      messages: [{ role: "user", content:
+        `Give a 2–5 word title for this found poem. Make it specific to these words. ` +
+        `Reply with the title only, no quotes, and not "Echoes".\n\n${poem.join(" ")}` }],
+      temperature: 0.9,
+      max_tokens: 20,
+    });
+    const t = String(r?.response ?? "").trim().split("\n")[0].replace(/^["“”'*]+|["“”'*.]+$/g, "").trim();
+    if (t && t.split(/\s+/).length <= 6 && !STOCK_TITLE.test(t)) return t;
+  } catch (err) {
+    console.warn("hn-blackout: title re-ask failed —", err.message);
+  }
+  return null;
+}
+
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -73,7 +94,9 @@ export async function onRequestPost({ request, env }) {
       const out = parseResponse(resp?.response);
       const poem = Array.isArray(out?.poem) ? out.poem.filter(w => typeof w === "string" && w.trim()) : [];
       if (poem.length) {
-        return json({ title: typeof out.title === "string" && out.title ? out.title : "untitled", poem, model });
+        let title = typeof out.title === "string" && out.title.trim() ? out.title.trim() : "untitled";
+        if (STOCK_TITLE.test(title)) title = (await freshTitle(env, model, poem)) || title;
+        return json({ title, poem, model });
       }
       lastErr = `${model}: no poem in reply`;
     } catch (err) {

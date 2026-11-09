@@ -286,7 +286,9 @@ def post_bluesky(text, image, mime, alt, size):
     from atproto import Client, client_utils, models
 
     client = Client()
-    client.login(os.environ["BSKY_HANDLE"], os.environ["BSKY_APP_PASSWORD"])
+    # A leading "@" makes Bluesky treat the handle as an email address
+    handle = os.environ["BSKY_HANDLE"].strip().lstrip("@")
+    client.login(handle, os.environ["BSKY_APP_PASSWORD"].strip())
     tb = client_utils.TextBuilder().text(text + "\n").link(SITE.removeprefix("https://").rstrip("/"), SITE)
     for t in TAGS:
         tb.text(" ").tag(f"#{t}", t)
