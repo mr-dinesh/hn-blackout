@@ -9,6 +9,10 @@ on:
         description: 'Render the image as an artifact, post nothing'
         type: boolean
         default: false
+      force:
+        description: 'Post even if today already has a poem'
+        type: boolean
+        default: false
 
 jobs:
   post:
@@ -47,7 +51,7 @@ jobs:
       # A platform whose secrets are unset is skipped.
       - name: Post poem
         if: ${{ !inputs.dry_run }}
-        run: python bot/post_poem.py
+        run: python bot/post_poem.py ${{ inputs.force && '--force' || '' }}
         env:
           BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
