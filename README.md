@@ -41,9 +41,9 @@ wrangler pages deploy . --project-name hn-blackout --branch main
 
 Once a day at 09:00 IST, a GitHub Action (`.github/workflows/post-poem.yml`) runs `bot/post_poem.py`, which:
 
-1. pulls the top 20 HN headlines,
+1. screenshots the live HN front page down to story 20 in headless Chromium (Playwright) and reads the headlines from that same page; if that fails, it falls back to the HN API and a drawn panel,
 2. gets a poem from the live `/api/poem` endpoint (retrying if fewer than 6 of its words are found in the headlines),
-3. draws a 3-panel image with Pillow — the front page, the same page blacked out, the found poem — in the site's newsprint theme and fonts,
+3. builds a 3-panel image with Pillow: the real front-page screenshot, the same headlines blacked out, and the found poem, in the site's newsprint theme and fonts,
 4. posts it with alt text to Bluesky and/or Mastodon,
 5. commits `bot/posted.json`, so a second run that day skips, and so GitHub doesn't disable the schedule after 60 quiet days.
 
@@ -56,11 +56,14 @@ Repo secrets (a platform is skipped if its secrets aren't set):
 | `MASTODON_ACCESS_TOKEN` | Preferences → Development → New application, scopes `write:statuses` + `write:media` |
 | `MASTODON_INSTANCE_URL` | optional, defaults to `https://mastodon.social` |
 
-Preview without posting:
+To preview on GitHub, run the workflow from the Actions tab with **dry run** ticked; the image is uploaded as an artifact.
+
+To preview locally without posting:
 
 ```bash
 pip install -r bot/requirements.txt
 python bot/post_poem.py --dry-run   # writes bot/out/preview.png and prints the post text
+# needs Chromium: python -m playwright install chromium, or CHROME_PATH=/usr/bin/chromium
 ```
 
 Fonts (IM Fell English, Playfair Display) are vendored in `bot/fonts/` under the SIL Open Font License.

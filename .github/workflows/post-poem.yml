@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '30 3 * * *'   # 03:30 UTC = 09:00 IST, once a day
   workflow_dispatch:        # manual trigger from the Actions tab
+    inputs:
+      dry_run:
+        description: 'Render the image as an artifact, post nothing'
+        type: boolean
+        default: false
 
 jobs:
   post:
@@ -24,10 +29,24 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r bot/requirements.txt
+        run: |
+          pip install -r bot/requirements.txt
+          python -m playwright install --with-deps chromium   # for the HN screenshot
+
+      - name: Dry run (render only)
+        if: ${{ inputs.dry_run }}
+        run: python bot/post_poem.py --dry-run
+
+      - name: Upload preview
+        if: ${{ inputs.dry_run }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview
+          path: bot/out/
 
       # A platform whose secrets are unset is skipped.
       - name: Post poem
+        if: ${{ !inputs.dry_run }}
         run: python bot/post_poem.py
         env:
           BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
@@ -40,6 +59,7 @@ jobs:
       #  2. it counts as repository activity, so GitHub does not auto-disable
       #     this scheduled workflow after 60 days without commits.
       - name: Commit posted history
+        if: ${{ !inputs.dry_run }}
         run: |
           git config user.name "hn-blackout-bot"
           git config user.email "bot@users.noreply.github.com"

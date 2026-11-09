@@ -80,6 +80,37 @@ def fetch_titles(n=N_HEADLINES):
     return [it["title"].strip() for it in items if it and it.get("title")]
 
 
+def capture_hn(n=N_HEADLINES):
+    """Screenshot the live HN front page down to story n with headless Chromium.
+    Returns (PIL image, titles) — titles read from the same page, so the
+    screenshot and the poem always use identical headlines."""
+    from playwright.sync_api import sync_playwright
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(executable_path=os.getenv("CHROME_PATH") or None)
+        try:
+            # Under 750px HN switches to its mobile layout: larger text, wrapped
+            # titles, and a tall shape that fills the panel (~0.64 wide:high).
+            page = browser.new_page(viewport={"width": 620, "height": 2400}, device_scale_factor=2)
+            page.goto("https://news.ycombinator.com/", wait_until="domcontentloaded", timeout=30_000)
+            info = page.evaluate("""(n) => {
+                const rows = [...document.querySelectorAll('tr.athing')].slice(0, n);
+                const titles = rows.map(r => r.querySelector('.titleline > a')?.textContent.trim() || '');
+                const last = rows[rows.length - 1];
+                const sub = last?.nextElementSibling || last;
+                const main = document.querySelector('#hnmain').getBoundingClientRect();
+                return { titles, x: main.left, w: main.width,
+                         bottom: sub.getBoundingClientRect().bottom + window.scrollY + 3 };
+            }""", n)
+            titles = [t for t in info["titles"] if t]
+            if len(titles) < n // 2:
+                raise RuntimeError(f"only {len(titles)} stories found on the page")
+            png = page.screenshot(clip={"x": info["x"], "y": 0, "width": info["w"], "height": info["bottom"]})
+        finally:
+            browser.close()
+    return Image.open(io.BytesIO(png)).convert("RGB"), titles
+
+
 # ── Tokenise + match (same rules as blackout.html) ────────────────────────────
 
 _TRAIL = re.compile(r"[.,;:!?()\[\]'\"‘’“”–—]+$")
@@ -167,7 +198,7 @@ def layout_headlines(draw, titles, f, x0, y0, max_w, line_h, gap):
     return words, rules, y
 
 
-def render(titles, selected, poem_title, poem_words, date):
+def render(titles, selected, poem_title, poem_words, date, shot=None):
     W, H = 2400, 1400
     PANEL_W, PAD, TOP = 760, 30, 150
     img = Image.new("RGB", (W, H), DARK_BG)
@@ -196,6 +227,16 @@ def render(titles, selected, poem_title, poem_words, date):
     labels = ["THE FRONT PAGE", "BLACKED OUT"]
     for idx in (0, 1):
         px, py = panels[idx]
+        if idx == 0 and shot is not None:
+            # The real front page, scaled to fit the panel
+            d.rectangle([px, py, px + PANEL_W, py + panel_h], fill="#f6f6ef")
+            d.text((px + inner_x, py + 30), "THE FRONT PAGE", font=label_f, fill=INK_LIGHT)
+            d.line([px + inner_x, py + 62, px + PANEL_W - inner_x, py + 62], fill=INK, width=2)
+            box_w, box_h = PANEL_W - 24, panel_h - 86 - 12
+            scale = min(box_w / shot.width, box_h / shot.height)
+            im = shot.resize((round(shot.width * scale), round(shot.height * scale)), Image.LANCZOS)
+            img.paste(im, (px + (PANEL_W - im.width) // 2, py + 86))
+            continue
         d.rectangle([px, py, px + PANEL_W, py + panel_h], fill=NEWSPRINT)
         d.text((px + inner_x, py + 30), labels[idx], font=label_f, fill=INK_LIGHT)
         d.line([px + inner_x, py + 62, px + PANEL_W - inner_x, py + 62], fill=INK, width=2)
@@ -272,8 +313,10 @@ def post_text(poem_title, poem_words):
     return head + body + tail
 
 
-def alt_text(titles, poem_title, poem_words):
-    alt = (f"Three panels. Left: the top {len(titles)} Hacker News headlines. "
+def alt_text(titles, poem_title, poem_words, screenshot=False):
+    left = ("a screenshot of the Hacker News front page, top {n} stories" if screenshot
+            else "the top {n} Hacker News headlines").format(n=len(titles))
+    alt = (f"Three panels. Left: {left}. "
            f"Middle: the same headlines with every word blacked out except the poem. "
            f"Right: the found poem, titled “{poem_title}”: {' / '.join(poem_words)}. "
            f"Headlines: " + " · ".join(titles))
@@ -346,16 +389,20 @@ def main():
     if not targets and not args.dry_run:
         raise SystemExit("No accounts configured: set BSKY_HANDLE + BSKY_APP_PASSWORD and/or MASTODON_ACCESS_TOKEN.")
 
-    titles = fetch_titles()
+    try:
+        shot, titles = capture_hn()
+    except Exception as e:  # noqa: BLE001 — fall back to the API and a drawn panel
+        print(f"Screenshot failed ({e}); using the HN API and a drawn front page.", file=sys.stderr)
+        shot, titles = None, fetch_titles()
     tokens = tokenize(titles)
     poem_title, found, selected, model = get_poem(titles, tokens)
     poem_words = [tidy(w) for w in found]
     print(f"{len(titles)} headlines · “{poem_title}” · {len(poem_words)} words · {model}")
 
-    img = render(titles, selected, poem_title, poem_words, today)
+    img = render(titles, selected, poem_title, poem_words, today, shot)
     image, mime = encode(img)
     text = post_text(poem_title, poem_words)
-    alt = alt_text(titles, poem_title, poem_words)
+    alt = alt_text(titles, poem_title, poem_words, screenshot=shot is not None)
 
     if args.dry_run:
         OUT_DIR.mkdir(exist_ok=True)
