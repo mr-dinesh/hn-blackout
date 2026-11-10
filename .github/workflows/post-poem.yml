@@ -2,7 +2,13 @@ name: Post HN Blackout poem
 
 on:
   schedule:
-    - cron: '30 3 * * *'   # 03:30 UTC = 09:00 IST, once a day
+    # 09:00 IST, plus two backup slots. GitHub starts scheduled runs late or drops
+    # them when busy (10 Nov 2026: the 09:00 run never started). Only the first run
+    # that starts each IST day posts; later ones find today in bot/posted.json and skip.
+    # Minutes avoid the top of the hour, when GitHub's scheduler is busiest.
+    - cron: '30 3 * * *'   # 03:30 UTC = 09:00 IST
+    - cron: '40 4 * * *'   # 04:40 UTC = 10:10 IST (backup)
+    - cron: '10 6 * * *'   # 06:10 UTC = 11:40 IST (backup)
   workflow_dispatch:        # manual trigger from the Actions tab
     inputs:
       dry_run:
@@ -26,7 +32,12 @@ jobs:
       contents: write
 
     steps:
+      # Check out the tip of main as it is when the job starts, not the commit that
+      # existed when the run was triggered. A backup run queued behind the concurrency
+      # group then sees the posted.json entry the earlier run pushed, and skips.
       - uses: actions/checkout@v6
+        with:
+          ref: main
 
       - uses: actions/setup-python@v6
         with:
