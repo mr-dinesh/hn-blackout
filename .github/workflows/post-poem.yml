@@ -19,6 +19,11 @@ on:
         description: 'Post even if today already has a poem'
         type: boolean
         default: false
+      only:
+        description: 'Post to one platform only (use with force to add a missed one)'
+        type: choice
+        options: [both, bluesky, mastodon]
+        default: both
 
 jobs:
   post:
@@ -62,7 +67,7 @@ jobs:
       # A platform whose secrets are unset is skipped.
       - name: Post poem
         if: ${{ !inputs.dry_run }}
-        run: python bot/post_poem.py ${{ inputs.force && '--force' || '' }}
+        run: python bot/post_poem.py ${{ inputs.force && '--force' || '' }} ${{ (inputs.only == 'bluesky' || inputs.only == 'mastodon') && format('--only {0}', inputs.only) || '' }}
         env:
           BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}

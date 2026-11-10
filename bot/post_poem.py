@@ -17,6 +17,7 @@ Usage:
   python bot/post_poem.py              # post today's poem
   python bot/post_poem.py --dry-run    # render bot/out/preview.png, post nothing
   python bot/post_poem.py --force      # post even if today already has a poem
+  python bot/post_poem.py --force --only mastodon   # post to one platform only
 """
 
 import argparse
@@ -379,6 +380,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--dry-run", action="store_true", help="render bot/out/preview.* and print the post; post nothing")
     ap.add_argument("--force", action="store_true", help="post even if today already has a poem")
+    ap.add_argument("--only", choices=["bluesky", "mastodon"],
+                    help="post to this platform only (e.g. to add one that was missed today)")
     args = ap.parse_args()
 
     today = dt.datetime.now(dt.timezone(dt.timedelta(hours=5, minutes=30))).date()  # IST
@@ -392,6 +395,10 @@ def main():
         targets.append("bluesky")
     if os.getenv("MASTODON_ACCESS_TOKEN"):
         targets.append("mastodon")
+    if args.only:
+        if args.only not in targets and not args.dry_run:
+            raise SystemExit(f"--only {args.only}: that platform's secrets are not set.")
+        targets = [args.only]
     if not targets and not args.dry_run:
         raise SystemExit("No accounts configured: set BSKY_HANDLE + BSKY_APP_PASSWORD and/or MASTODON_ACCESS_TOKEN.")
 
