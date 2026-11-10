@@ -121,5 +121,49 @@
       "Muse Ember: Our smallest, most efficient model"
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3mzwmh7n7co2j"
+  },
+  {
+    "date": "2026-11-10",
+    "title": "Mysterious Beep Silence",
+    "poem": [
+      "mysterious",
+      "beep",
+      "Never",
+      "Gonna",
+      "Print",
+      "You",
+      "Up",
+      "Show",
+      "HN",
+      "Every",
+      "place",
+      "this",
+      "week",
+      "Muse"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Claude Fable 5.2 and Mythos 5.2",
+      "USPS now offers official ZIP Code boundary polygons",
+      "Payments Canada announces launch of Canada's Real-Time Rail (RTR) payment system",
+      "E-means: Outperforming k-means in one-tenth the epochs",
+      "How Many People Work from Home?",
+      "Horible public key tricks",
+      "Foldable Flight: The Best Paper Airplanes",
+      "Locating the source of a mysterious beep",
+      "CoreWeave bond yield tops 16% as AI credit stress rises",
+      "Exact – a new cross platform UI framework",
+      "Semi-transparent, colored cadmium telluride photovoltaic panels in agrivoltaics",
+      "The first 300-millimeter power silicon carbide (SiC) wafer",
+      "A primer on GPUs and kernel optimization",
+      "Never Gonna Print You Up",
+      "Formalizing CPython",
+      "Fable 5.2 one-shotted my nephew's dream game",
+      "Show HN: Every satellite that passed over any place this week, and its photos",
+      "Google Gemini routes personal Drive files and emails to human annotators",
+      "Muse Ember: Our smallest, most efficient model",
+      "TPU 8tx and TPU 8i Max"
+    ],
+    "mastodon": "https://mastodon.social/@browncoolie/117590381877590844"
   }
 ]
