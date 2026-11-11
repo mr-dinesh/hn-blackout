@@ -1,0 +1,10 @@
+name = "hn-blackout-trigger"
+main = "worker.js"
+compatibility_date = "2026-04-22"
+workers_dev = false
+
+# GitHub's own schedule trigger can start hours late or not at all, so this
+# Worker starts the workflow on time. The workflow's GitHub cron slots stay as a
+# fallback; bot/posted.json makes every run after the first one that day skip.
+[triggers]
+crons = ["30 3 * * *"]   # 03:30 UTC = 09:00 IST
