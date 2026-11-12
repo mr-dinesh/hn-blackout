@@ -207,5 +207,47 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3mzz4jl2th22v",
     "mastodon": "https://mastodon.social/@browncoolie/117595916888481427"
+  },
+  {
+    "date": "2026-11-12",
+    "title": "Ghost Frequencies Rise",
+    "poem": [
+      "splatters",
+      "Jensen",
+      "RCE",
+      "almost",
+      "drowned",
+      "Gemini",
+      "Decisions",
+      "Magic",
+      "Stingray",
+      "unmapped",
+      "Hyper-Realistic"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "93% of paint splatters are valid Perl programs (2019)",
+      "Tim Peters has died",
+      "AWS emulator",
+      "Nvidia is preparing to oust Jensen Huang",
+      "Lock Your GitHub Actions",
+      "United Airlines bans AI agents from booking flights on behalf of travelers",
+      "Critical RCE Vulnerability in Apache HTTP Server",
+      "A false smoke alarm almost drowned Jane Street's only NYC datacenter",
+      "Gemini Decisions API",
+      "Did Life Begin in an RNA World?",
+      "Lean Grimoire",
+      "A general purpose Apple Silicon layer for x86-64 PCs",
+      "Emacs in the Age of Magic",
+      "The Utah Teapot",
+      "How to make a CNC plasma cutter with high-frequency start",
+      "Show HN: I recreated Papers Please but you're deciding which YC startups to fund",
+      "Faster Retrieval for Better, More Efficient RAG",
+      "Stingray Fish Laser",
+      "My AI agents found an unmapped Maya site?",
+      "Hyper-Realistic Sand with WebGL2"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n23jttcobh2h",
+    "mastodon": "https://mastodon.social/@browncoolie/117601357738938430"
   }
 ]
