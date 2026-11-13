@@ -249,5 +249,50 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n23jttcobh2h",
     "mastodon": "https://mastodon.social/@browncoolie/117601357738938430"
+  },
+  {
+    "date": "2026-11-13",
+    "title": "Haunted Machine Dreams",
+    "poem": [
+      "roughly",
+      "280",
+      "years",
+      "nightmare",
+      "Abandoned",
+      "finished",
+      "now",
+      "playable",
+      "Relax",
+      "JIT",
+      "compiler",
+      "reduce",
+      "build",
+      "times"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Jensen Huang resigns",
+      "Switcher (2004)",
+      "Rust 1.100",
+      "Gemini 4 Hydrogen and Orchestrator",
+      "Edge0-145B: Frontier AI Capabilities on Your Own Computer",
+      "Show HN: My $300 embroidery machine needed a subscription, so I built my own app",
+      "Dwarf planet candidate appears which takes roughly 280 years to orbit our sun",
+      "Foundation Models framework",
+      "Show HN: I built a Rick and Morty explainer video generator",
+      "Former Nvidia CEO Huang had a relationship with a second employee, sources say",
+      "Service degradation on Microsoft 365",
+      "I'm making LLMs work on small and old devices",
+      "Nvidia employees petition to bring back Jensen Huang",
+      "AI is turning Apple's app review process into a nightmare for synth developers",
+      "Turning a 22-year-old Postgres type-confusion primitive into RCE",
+      "Brave Search API now accepts agentic payments via the x402 protocol",
+      "Abandoned Quake 4 expansion finished by modders and now playable",
+      "Sift: LSP, Lint, Format Lisp, Scheme and Emacs Lisp",
+      "Relax: JIT compiler for Rust to reduce build times",
+      "Adapting CPython for Yk"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n266vv5drl23",
+    "mastodon": "https://mastodon.social/@browncoolie/117607343576067038"
   }
 ]
