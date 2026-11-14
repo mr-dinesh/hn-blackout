@@ -294,5 +294,52 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n266vv5drl23",
     "mastodon": "https://mastodon.social/@browncoolie/117607343576067038"
+  },
+  {
+    "date": "2026-11-14",
+    "title": "Fractured Social Skies",
+    "poem": [
+      "Elephants",
+      "found",
+      "to",
+      "be",
+      "increasingly",
+      "isolated",
+      "leading",
+      "Live",
+      "airband",
+      "nationwide",
+      "ground",
+      "stopped",
+      "Doomsday",
+      "Friday",
+      "13",
+      "November"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Ggml v1.0.0",
+      "Terminal borders that don't cost a cell",
+      "What Happened to 3Com?",
+      "Live airband on all frequencies from KORS. Victoria, CA also ground stopped",
+      "Nvidia Allegedly Engineered Scarcity by Funding AI Startups to Buy Its GPUs",
+      "Reverse engineering my Coway air purifier to ditch the cloud",
+      "Show HN: Live map of U.S. flights during tonight's FAA nationwide ground stop",
+      "Elephants found to be increasingly isolated leading to fractured social networks",
+      "Amtrak booking system experiencing major issues amid nationwide FAA ground stop",
+      "Found: A protein that drives ageing without unleashing inflammation",
+      "Anthropic Upgrades Claude Code Projects to Run Parallel AI Workers Hands-Free",
+      "FAA issues national ground stop – lifted 4.5 hours later",
+      "Doomsday: Friday, 13 November, A.D. 2026 (1960)",
+      "After 600 experiments, here's what I discovered about JEPA world models",
+      "Unsloth Qwen3.8-27B Quantizations – Dynamic v3.1 Update",
+      "Nvidia director sold nearly $1B in stock weeks before the Jensen Huang scandal",
+      "FM-1 Workbench",
+      "Philip Roth and David Remnick Getting Personal",
+      "Perplexity Decider v1.3: Training, eval, and use cases",
+      "Autonomous (YC F25) is hiring MTS to build AI agents that manage your wealth"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2ambve4222u",
+    "mastodon": "https://mastodon.social/@browncoolie/117612788356236472"
   }
 ]
