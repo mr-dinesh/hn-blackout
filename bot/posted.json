@@ -428,5 +428,46 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2fqynxsys2c",
     "mastodon": "https://mastodon.social/@browncoolie/117624378857952495"
+  },
+  {
+    "date": "2026-11-17",
+    "title": "Dark Code Harvest",
+    "poem": [
+      "Mem",
+      "Down",
+      "Chemistry",
+      "Is",
+      "Geometry",
+      "Squircles",
+      "Nuked",
+      "Veteran",
+      "Repeat",
+      "Yourself"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Carnegie Mellon is putting computer science courses on YouTube for free",
+      "Windows 11 Is Collecting Data on Which Coding Agents and Developer Tools You Use",
+      "BugMeNot has closed",
+      "Running coding agents without handing them my credentials",
+      "Optimizely Compromised, Served Malware on Zoom, GitLab",
+      "If an App Asks for Full Disk Access or System and App Protection Override",
+      "OpenCode Browse",
+      "Chemistry is Actually Geometry",
+      "Frame – 31.5\" color ePaper display",
+      "Mem Is Shutting Down",
+      "Jiff 1.0: A datetime library for Rust",
+      "How to Break into Security, Ptacek Edition (2012)",
+      "Formal Verification Is Not Verifiable",
+      "Grazing sheep in fields with solar arrays",
+      "Do Repeat Yourself",
+      "Technical issue at JPMorgan Chase triggers online banking delays for US banks",
+      "Atomic Nuked Veteran",
+      "The most expensive bargaining chip in history",
+      "Squircles",
+      "Show HN: Sutra-OS – A self-hosted ontology platform"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2i5qbdsn42p",
+    "mastodon": "https://mastodon.social/@browncoolie/117629778820795355"
   }
 ]
