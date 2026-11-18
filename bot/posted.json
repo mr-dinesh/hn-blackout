@@ -469,5 +469,50 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2i5qbdsn42p",
     "mastodon": "https://mastodon.social/@browncoolie/117629778820795355"
+  },
+  {
+    "date": "2026-11-18",
+    "title": "Lost Signals Fade",
+    "poem": [
+      "Quad9's",
+      "disappeared",
+      "Highly",
+      "classified",
+      "Phrack",
+      "73",
+      "Released",
+      "350",
+      "years",
+      "ago",
+      "finite",
+      "speed",
+      "Disaggregated",
+      "Inference"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Java4Shell: RCE in OpenJDK when processing Base64",
+      "ID.me terms required for IRS sign-in",
+      "Google's AI answers reducing search traffic by 40%",
+      "GPT‑6.2 Astra and Sol",
+      "Quad9's withdrawal from France: A canary in the coal mine",
+      "Microsoft's ONNX Runtime has disappeared from GitHub",
+      "Archive Team is archiving the Apple Support Community (closes November 20, 2026)",
+      "GoGoGrandparent (YC S16) Is a Front End JavaScript / TypeScript Engineer",
+      "Nvidia stopped disclosing Singapore sales as revenues hit $104B",
+      "Highly classified US national security communications network goes down",
+      "jQuery 4.1.0",
+      "MAI Code 2 and Code 2 Flash",
+      "Phrack 73 Released",
+      "350 years ago, Ole Rømer discovered that light has a finite speed",
+      "Engineering Vitals in the Age of AI",
+      "Harvard researchers find AI coding agents shifted the bottleneck to code review",
+      "Cerebras Disaggregated Inference",
+      "Solid 2.0",
+      "Fun with Constrained Programming",
+      "What is the best harness for each model?"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2kppq7j6u2h",
+    "mastodon": "https://mastodon.social/@browncoolie/117635547890928513"
   }
 ]
