@@ -514,5 +514,51 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2kppq7j6u2h",
     "mastodon": "https://mastodon.social/@browncoolie/117635547890928513"
+  },
+  {
+    "date": "2026-11-19",
+    "title": "Dark Code Revelations",
+    "poem": [
+      "Unauthenticated",
+      "Gemini",
+      "4",
+      "Neon",
+      "looks",
+      "like",
+      "Multiple",
+      "vulnerabilities",
+      "We",
+      "need",
+      "smart",
+      "people",
+      "who",
+      "give",
+      "shit"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Gemini 4 Neon",
+      "Unauthenticated remote code execution in Nginx",
+      "Gemini 4 Neon looks like an Opus 5.5 competitor",
+      "Multiple vulnerabilities in Regexp and String case conversion",
+      "Unreal Tournament 2004 in the Browser",
+      "Seven new models at scalable price-performance",
+      "AI agents ask better questions than KPMG accountants in audit trial",
+      "LLM assisted reverse engineering",
+      "Inside Deutsche Bank",
+      "DNS resolvers are the wrong place to fight piracy",
+      "Previous-Token Prediction Based LLM Inversion for Prompt Reconstruction",
+      "DaisyRose-27B",
+      "Dumping an AES key from a MyQ garage opener to stop rebooting when offline",
+      "We need smart people who give a shit",
+      "The Cambridge Dictionary has named ‘human’ as the Word of the Year 2026",
+      "Advancing chip design with OpenAI models",
+      "Genie 4 is now available",
+      "Show HN: ExitPath – Open-source ways out of Slack, Notion and Microsoft 365",
+      "Cuttlefish on Mac: Android's Virtual Device Framework on Apple Silicon",
+      "Show HN: Take Voyager 1 apart, down to a single memory chip"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2n73ec2ic2f",
+    "mastodon": "https://mastodon.social/@browncoolie/117641132606698861"
   }
 ]
