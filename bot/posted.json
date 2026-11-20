@@ -560,5 +560,49 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2n73ec2ic2f",
     "mastodon": "https://mastodon.social/@browncoolie/117641132606698861"
+  },
+  {
+    "date": "2026-11-20",
+    "title": "Dark Code Blossoms",
+    "poem": [
+      "Gemini",
+      "Nasdaq",
+      "virus",
+      "Bloat",
+      "black",
+      "holes",
+      "CAD",
+      "Almost",
+      "Anything",
+      "Extraction",
+      "Tax",
+      "Offline",
+      "frontier"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Gemini 4 Neon is the new #1 on the Models Engineering Index",
+      "Anthropic’s Nasdaq debut",
+      "Pancreatic cancer halted by virus injection in three patients",
+      "OpenSSL: Buffer overflow in EVP_EncodeBlock() (CVE-2026-121481, CVSS 9.8)",
+      "GIMP now has UI tests",
+      "Postgres 19 Repack: Faster, Built-In Table Bloat Cleanup",
+      "Vint Cerf on why TCP/IP was never patented",
+      "Claude solves two open problems in the physics of black holes",
+      "How to CAD Almost Anything",
+      "Garage Door Spam",
+      "The 98% Slot Machine: How Paid Advertising Became an Extraction Tax",
+      "Weight-Space Programming builds neural networks like a 1990s researcher",
+      "Launch HN: Onlook (YC W25) – An open-source developer tool for designers",
+      "Someone reported java4shell bug in September 2026",
+      "RegExr: Temporarily Offline",
+      "Show HN: Cornhole News – A Hacker News inspired site for news across the Midwest",
+      "Talking Venice with Mahesh Subramony at AMD In-Depth",
+      "Should governments slow frontier AI? Jacob Coxon and Robin Hanson debate [video]",
+      "ChatGPT for SNES",
+      "IRA Velinsky, industrial designer for Commodore and Atari"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2pu2c6ekq2f",
+    "mastodon": "https://mastodon.social/@browncoolie/117647111560684142"
   }
 ]
