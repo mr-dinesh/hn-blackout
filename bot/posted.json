@@ -650,5 +650,51 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2sckm4m2z2y",
     "mastodon": "https://mastodon.social/@browncoolie/117652636197035043"
+  },
+  {
+    "date": "2026-11-22",
+    "title": "Fractured Light Speed",
+    "poem": [
+      "Pill",
+      "Detonating",
+      "lead",
+      "azide",
+      "Split",
+      "Radiance",
+      "Cascades",
+      "Shaping",
+      "the",
+      "Loops",
+      "Upload2Shell",
+      "Pandex",
+      "solved",
+      "Riemann",
+      "Hypothesis"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Toyota, Nissan, and Honda to Standardize Parts to Lower Costs",
+      "Pill to treat pancreatic cancer hailed as 'biggest breakthrough in decades'",
+      "Lean verification of the Riemann Hypothesis",
+      "Inkling-2-Mini in 5.4 GB Memory",
+      "Sandwich Simulator",
+      "Detonating a pile of lead azide",
+      "Data Processing Incidents on Inference Providers",
+      "Getting the mind to steer the body to steer you",
+      "PcapAnalyzer – self-hosted pcap analyzer with 27 problem detectors",
+      "Leonida – PC Recompilation of the Xbox Version of GTA 6",
+      "My monitor was cutting my download speed by 75%",
+      "Shaping the Loops, Closing the Loops",
+      "The Most Popular Car Colors in America",
+      "Upload2Shell (CVE-2026-125396)",
+      "Split Radiance Cascades",
+      "Pandex – Official European Law for AI Agents, over MCP",
+      "Unit-testing in the Ü programming language",
+      "Advice for the next 100 Rust GUIs",
+      "PostgreSQL Extensions in Go",
+      "Since last year, we asked: \"What if AI solved the Riemann Hypothesis?\""
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2utmlmzqr2i",
+    "mastodon": "https://mastodon.social/@browncoolie/117658340485457469"
   }
 ]
