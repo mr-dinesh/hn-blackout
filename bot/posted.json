@@ -741,5 +741,48 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2x7prt4xc2f",
     "mastodon": "https://mastodon.social/@browncoolie/117663695603431679"
+  },
+  {
+    "date": "2026-11-24",
+    "title": "Dark Matter Transmission",
+    "poem": [
+      "Jensen",
+      "dark",
+      "matter",
+      "candidate",
+      "of",
+      "Salvage",
+      "Yards",
+      "hyping",
+      "dangers",
+      "Concept",
+      "Injections",
+      "Mercury",
+      "orbit"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Nvidia Reinstates Jensen Huang as CEO",
+      "Stalwart is now a drop-in replacement for Microsoft Exchange",
+      "New York Bans Subscription and Post-Purchase Fees on Cars",
+      "Ladybird is now in alpha",
+      "The search for a top dark matter candidate",
+      "Drone Maps of Salvage Yards",
+      "GPUI is getting its own repository",
+      "Bored.com: Fun, interesting and cool websites to explore when bored",
+      "Per Arm's request, this site will be discontinued on 4 December 2026 :(",
+      "\"Dario is hyping the dangers so OSS models are illegal and he stays in control\"",
+      "Freeing the iPod Nano 5G",
+      "How photos were transmitted by wire in the 1930s (2024)",
+      "New York Bans Subscription and Post-Purchase Fees on Cars",
+      "Making a dumb TV just smart enough",
+      "Latent Introspection: LLMs Can Detect Prior Concept Injections",
+      "Show HN: Juncts, one DM inbox for five apps that Claude and ChatGPT can work in",
+      "Spacecraft reaches Mercury on second-ever mission to enter its orbit",
+      "NariQ: BF16-level Qwen3.8-27B in a 10 GB file",
+      "Free alternative TV network built from the Internet Archive's forgotten videos",
+      "VP ≠ VNP over Every Field"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2zskxje7g2g"
   }
 ]
