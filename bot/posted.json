@@ -784,5 +784,55 @@
       "VP ≠ VNP over Every Field"
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n2zskxje7g2g"
+  },
+  {
+    "date": "2026-11-25",
+    "title": "Ghost Frequencies",
+    "poem": [
+      "via",
+      "Inference",
+      "Servers",
+      "Despite",
+      "Little",
+      "Star",
+      "Ternary",
+      "Bonsai",
+      "U.S.",
+      "Interstate",
+      "Weather",
+      "negative",
+      "profit",
+      "intrinsic",
+      "Rewritable",
+      "Image",
+      "Months",
+      "Without",
+      "Power"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Matrix Multiplication is Θ(n^2.25) [pdf]",
+      "Button Sounds – collection of professionally-recorded button clicks and presses",
+      "I've been drinking wine in my kitchen",
+      "Gemini refused to give me the lyrics to Twinkle Twinkle Little Star",
+      "Models Can Communicate via Inference Servers Despite Being Sandboxed",
+      "Ternary Bonsai 2.5 27B",
+      "Show HN: U.S. Interstate Weather",
+      "PenGPT: A Generative Transformer for Handwriting and Sketches",
+      "Marginalia Search, Money, C++, Rust, AI, Stuff",
+      "Bypassing iOS Safari's 60 FPS Limit to Build Web Applications That Feel Native",
+      "Serving Qwen via AWS Lambdas for fun and 80x negative profit",
+      "GPT-6 models demonstrate intrinsic protein-design capabilities",
+      "Lua for Data Representation",
+      "Macrohistory in Six Facts",
+      "New Rewritable Antimony Elenide Display Shows an Image for Months Without Power",
+      "Launch HN: Versine (YC F26) – MCP to send and receive money",
+      "The Spray Bottle",
+      "Active intrusion campaign against Check Point security management servers",
+      "Top open problems in mathematics ranked by LLM-assessed importance",
+      "Show HN: Old Nvidia and ATI tech demos, running again in the browser"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n34f2frxdo2b",
+    "mastodon": "https://mastodon.social/@browncoolie/117675329723718234"
   }
 ]
