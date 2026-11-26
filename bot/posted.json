@@ -834,5 +834,48 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n34f2frxdo2b",
     "mastodon": "https://mastodon.social/@browncoolie/117675329723718234"
+  },
+  {
+    "date": "2026-11-26",
+    "title": "Dark Code Fragments",
+    "poem": [
+      "Holy",
+      "shit",
+      "happening",
+      "Security",
+      "Incident",
+      "Slow",
+      "response",
+      "times",
+      "pre-auth",
+      "remote",
+      "root",
+      "Hardening"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "1Password Security Incident",
+      "Holy shit holy shit holy shit holy shit: The magnitude of what’s now happening",
+      "Much shorter version of GRH Lean verification from Anthropic",
+      "Tell HN: Lots of Ask HNs again",
+      "GPT-6.2 Astra is the first model to beat Googlers' code golf records",
+      "Slow Ubuntu security response times",
+      "A few questions for the guy who went snorkeling in a Home Depot retention pond",
+      "The New York Times warns photographers not to update Photoshop over AI features",
+      "How did pinwheel calculators work?",
+      "Bare Metal Qwen",
+      "Nfs2root: A 12-year-old pre-auth remote root in the Linux kernel's NFS server",
+      "Collection of preserved UI style guides",
+      "SSH is a GUI framework",
+      "Deploying a payphone on a tiny Pacific Island",
+      "Hkust 3D Prints a Titanium Alloy That Keeps Hardening",
+      "The polynomial Hirsch conjecture is false [pdf]",
+      "Multiagent coding is the future",
+      "Jev is probably Qwen3.5-35B-A3B",
+      "A beer brewer's noise estimation",
+      "Google releases Cogentic papers on integer factorization, discrete logs and more"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n36qffyus52e",
+    "mastodon": "https://mastodon.social/@browncoolie/117680631573967503"
   }
 ]
