@@ -877,5 +877,49 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n36qffyus52e",
     "mastodon": "https://mastodon.social/@browncoolie/117680631573967503"
+  },
+  {
+    "date": "2026-11-27",
+    "title": "Behind Invisible Walls",
+    "poem": [
+      "behind",
+      "your",
+      "almost",
+      "invisible",
+      "abroad",
+      "Punisher",
+      "indicted",
+      "uncertainty",
+      "in",
+      "machine",
+      "learning",
+      "enters",
+      "alpha"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "A Deterministic Subexponential-Time Algorithm for the Discrete Logarithm Problem [pdf]",
+      "The group chat where your AI talks behind your back",
+      "AI made self-hosting fun again",
+      "Kamil Khan Mumtaz: Pakistani architect, admired at home, almost invisible abroad",
+      "YouTube Ad Punisher – Auto-reloads YouTube pages when an ad plays",
+      "AMD-specific fork of llama.cpp",
+      "Hard Drive pricing has gotten bad",
+      "CTO of 'RansomwareHelp' indicted for wire fraud",
+      "Company Culture = Slack Emoji ÷ √Headcount",
+      "Intel One Mono font (2023)",
+      "European Commission Declares Browser Competition a Digital Markets Act Priority",
+      "Buy Nothing Day – Friday November 27th 2026",
+      "The need for a formally verifiable mainstream programming language",
+      "Google Will Make AI Agents Use Its MCP Servers. The Gmail One Can't Send Email",
+      "An introduction to uncertainty in machine learning",
+      "Pizza history: AI agent's cardless purchase is a first for UK",
+      "Indie web browser Ladybird enters alpha testing",
+      "Rvoip: VoIP stack in Rust",
+      "Show HN: I wrote an entire Vim manual over 4 years",
+      "Novita, StreamLake, etc. are ByteDance Ark wrappers"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n3caanc3m52m",
+    "mastodon": "https://mastodon.social/@browncoolie/117688502335586482"
   }
 ]
