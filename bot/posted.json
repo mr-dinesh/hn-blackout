@@ -921,5 +921,50 @@
     ],
     "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n3caanc3m52m",
     "mastodon": "https://mastodon.social/@browncoolie/117688502335586482"
+  },
+  {
+    "date": "2026-11-28",
+    "title": "Desert Signals Fade",
+    "poem": [
+      "Farewell",
+      "seamlessly",
+      "up",
+      "Moratorium",
+      "Mystery",
+      "utopian",
+      "Signals",
+      "Infestation",
+      "without",
+      "telling",
+      "them",
+      "Quantum",
+      "Omelette",
+      "bouncing"
+    ],
+    "model": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "headlines": [
+      "Farewell",
+      "Unkernel: Real Linux kernel, compiled to WebAssembly",
+      "Loom seamlessly combines weaving, knitting and braiding",
+      "Google's DeepCrossAttention achieves comparable model quality up to 3x faster",
+      "Knuth: Moratorium on Error Reports",
+      "The Balatro Timeline",
+      "GPT 6.2 Astra Solves a Historical Mystery",
+      "Paolo Soleri built a utopian eco-city in the Arizona desert",
+      "Credit card skimming scripts using WebRTC found on popular shopping sites",
+      "Coherent Energy Transformations: What elements can you make?",
+      "Signals",
+      "Sydney Fire Ant Infestation",
+      "Convex skills send the user's app idea to a remote server without telling them",
+      "What Is the Metabolism-First Theory for the Origin of Life?",
+      "Tabernetes: A Kubernetes cluster whose nodes are browser tabs",
+      "Citroën Hydraulic System",
+      "The Quantum Omelette Problem",
+      "Show HN: bouncemarket – a live prediction market game for a bouncing ball",
+      "9/UX: a Macintosh-inspired desktop for 9front",
+      "Show HN: Fleetlayer – Framework for running many AI agents on multiple machines"
+    ],
+    "bluesky": "at://did:plc:o25upiamim3ydgfhp53lwmoq/app.bsky.feed.post/3n3enxhnl5z2y",
+    "mastodon": "https://mastodon.social/@browncoolie/117693970958760218"
   }
 ]
